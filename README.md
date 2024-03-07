@@ -11,4 +11,5 @@ Please add
 # Code execution guide
 Please add
 
-# Names of anyone you have collaborated with (as much as it is allowed within the course policy) or a line saying that you did not collaborate with anyone else.  
+# Names of anyone you have collaborated with (as much as it is allowed within the course policy) or a line saying that you did not collaborate with anyone else. 
+  Our group did not collaborate with anyone (As of yet)
