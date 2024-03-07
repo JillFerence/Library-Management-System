@@ -1,12 +1,11 @@
 import sys
 import sqlite3
-import enum
 
 
 def Login():
     while(1):
-        userInput = input("Do you have an account? (Y/N):")
-            
+        userInput = input("\n**** Login Page ****\nDo you have an account? (Y|N):")
+        
         if userInput == "Y":
             print("**** Login ****")
             while(1):
@@ -16,22 +15,25 @@ def Login():
                     "email": email, "passwd": password
                 })
                 res = c.fetchone()
-                
-                if res[0] == email:
-                    print("Successfully logged in! Welcome " + res[1] + "")
-                    return email
-                else:
-                    print("User account not found!")
+                try:
+                    if res[0] == email:
+                        print("Successfully logged in!\nWelcome " + res[1] + "")
+                        return email
+                    else:
+                        print("Incorrect User Information")
+                except TypeError:
+                    print("User not found, try again\n")
+                        
 
                 
             
         elif userInput == "N":
             passFlag = False 
             print("**** Register ****")
-            email = input("Enter new Email: ")
-            name = input("Enter your Name: ")
-            birthYear = input("Enter your Year of Birth: ")
-            faculty = input("Enter your Faculty: ")
+            email = input("Fill information below\nEmail: ")
+            name = input("Name: ")
+            birthYear = input("Year of Birth: ")
+            faculty = input("Faculty: ")
             while(1):
                 password = input("Enter new Password: ")
                 passwordCheck = input("Re-enter password: ")
@@ -39,19 +41,39 @@ def Login():
                     print("Passwords do not match!")
                 else:
                     break
-            c.execute("INSERT INTO members VALUES ('"+email+"','"+password+"','"+name+"',"+birthYear+",'"+faculty+"')")
-            conn.commit()
-            return email
+            try:
+                c.execute("INSERT INTO members VALUES ('"+email+"','"+password+"','"+name+"',"+birthYear+",'"+faculty+"')")
+                conn.commit()
+                print("Account registered")
+                return email
+            except sqlite3.IntegrityError:
+                print("This account is already registered!")
+                continue
+            
         else:
-            print("Invalid Input")
+            print("Invalid Input (Y|N)")
+
+def profile():
+    option = input("\n\n**** Choose your option ****\n1.User Information\n2.Borrowed Books\n3.Penalties\n")
+    if option == "1":
+        c.execute("SELECT email, name, byear, faculty FROM members WHERE email=:email", {
+            "email": u_email,
+        })
+        res = c.fetchone()
+        print("\n\n**** User Information ****:\nEmail: "+res[0]+"\nName: "+res[1]+"\nYear of Birth: "+str(res[2])+"\nFaculty: "+res[3])
+    elif option == "2":
+        print("Borrowed Books")
+    elif option == "3":
+        print("Penalties")
+    
 
 def MainMenu():
     while(1):
         option = input("\n\nChoose your option (Enter Corresponding Number):\n1.Profile\n2.Your Books\n3.Book Search\n4.Pay Penalty\n5.Quit\n")
         if option == "1":
-            print("Profile")
+            profile()
         elif option == "2":
-            print("Your Books")
+            print("Book Return")
         elif option == "3":
             print("Book Search")
         elif option == "4":
