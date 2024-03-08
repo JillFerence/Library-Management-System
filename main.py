@@ -1,5 +1,6 @@
 import sys
 import sqlite3
+import getpass as gp
 
 
 def Login():
@@ -10,7 +11,7 @@ def Login():
             print("**** Login ****")
             while(1):
                 email = input("Enter Email: ")
-                password = input("Enter Password: ")
+                password = gp.getpass("Enter Password: ")
                 c.execute("SELECT email, name FROM members WHERE email=:email AND passwd=:passwd", {
                     "email": email, "passwd": password
                 })
@@ -35,8 +36,8 @@ def Login():
             birthYear = input("Year of Birth: ")
             faculty = input("Faculty: ")
             while(1):
-                password = input("Enter new Password: ")
-                passwordCheck = input("Re-enter password: ")
+                password = gp.getpass("Enter new Password: ")
+                passwordCheck = gp.getpass("Re-enter password: ")
                 if password != passwordCheck:
                     print("Passwords do not match!")
                 else:
@@ -54,22 +55,25 @@ def Login():
             print("Invalid Input (Y|N)")
 
 def profile():
-    option = input("\n\n**** Choose your option ****\n1.User Information\n2.Borrowed Books\n3.Penalties\n")
+    option = input("\n\n**** Profile ****\n1.User Information\n2.Borrowed Books\n3.Penalties\n4.Logout\n")
     if option == "1":
         c.execute("SELECT email, name, byear, faculty FROM members WHERE email=:email", {
             "email": u_email,
         })
         res = c.fetchone()
         print("\n\n**** User Information ****:\nEmail: "+res[0]+"\nName: "+res[1]+"\nYear of Birth: "+str(res[2])+"\nFaculty: "+res[3])
+        input("Press enter to return to main menu")
     elif option == "2":
-        print("Borrowed Books")
+        print("Borrowed Books") 
     elif option == "3":
         print("Penalties")
+    elif option == "4":
+        u_email = Login()
     
 
 def MainMenu():
     while(1):
-        option = input("\n\nChoose your option (Enter Corresponding Number):\n1.Profile\n2.Your Books\n3.Book Search\n4.Pay Penalty\n5.Quit\n")
+        option = input("\n\n**** Main Menu ****\n1.Profile\n2.Your Books\n3.Book Search\n4.Pay Penalty\n5.Quit\n(Enter corresponding number):")
         if option == "1":
             profile()
         elif option == "2":
@@ -92,5 +96,5 @@ except IndexError:
     sys.exit(1)
 conn = sqlite3.connect(database)
 c = conn.cursor()
-u_email = Login()
+u_email = Login()   
 MainMenu()
