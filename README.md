@@ -2,7 +2,7 @@
 # CMPUT 291 Mini Project 1 - Winter 2024  
 Group member names and ccids (3-4 members)  
   hpullish, Hunter  
-  ccid2, name2  
+  jference, Jill  
   ccid3, name2  
 
 # Group work break-down strategy
