@@ -3,7 +3,7 @@
 Group member names and ccids (3-4 members)  
   hpullish, Hunter  
   jference, Jill  
-  ccid3, name2  
+  lgjones, Lynden  
 
 # Group work break-down strategy
 Please add
