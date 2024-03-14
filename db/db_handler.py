@@ -42,3 +42,46 @@ class DatabaseHandler:
             print("Connection closed")
         else:
             print("Connection is already closed")
+    
+    def get_member_info(self, email):
+        query = "SELECT name, email, byear FROM members WHERE email = ?"
+        return self.fetch_one(query, (email,))
+    
+    def get_borrowing_info(self, email):
+        
+        borrow_query = "SELECT COUNT(*) FROM borrowings WHERE member = ?"
+        total_borrowed = self.fetch_one(borrow_query, (email,))
+        if total_borrowed is not None:
+            total_borrowed = total_borrowed[0]
+        else:
+            total_borrowed = 0
+        
+        current_borrow_query = "SELECT COUNT(*) FROM borrowings WHERE member = ? AND end_date IS NULL"
+        current_borrowed = self.fetch_one(current_borrow_query, (email,))
+        if current_borrowed is not None:
+            current_borrowed = current_borrowed[0]
+        else:
+            current_borrowed = 0
+        
+        overdue_borrowings_query = """
+            SELECT COUNT(*)
+            FROM borrowings
+            WHERE member = ? AND end_date IS NULL AND DATE('now') > DATE('start_date', '+20 day')
+            """
+        overdue_borrowings = self.fetch_one(overdue_borrowings_query, (email,))
+        if overdue_borrowings is not None:
+            overdue_borrowings = overdue_borrowings[0]
+        else:
+            overdue_borrowings = 0
+        
+        return total_borrowed, current_borrowed, overdue_borrowings
+    
+    def get_penalty_info(self, email):
+        penalty_query = """
+            SELECT COUNT(*), IFNULL(SUM(amount - IFNULL(paid_amount, 0)), 0)
+            FROM penalties
+            INNER JOIN borrowings ON penalties.bid = borrowings.bid
+            WHERE borrowings.member = ? AND (paid_amount IS NULL OR paid_amount < amount)
+            """
+        penalty_info = self.fetch_one(penalty_query, (email,))
+        return penalty_info # No need to handle Null here as we are doing it in the query itself

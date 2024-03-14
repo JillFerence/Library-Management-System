@@ -6,11 +6,18 @@ class UI:
         self.user = None
 
     def show_member_profile(self):  
-        print("\n**** Member Profile ****")
-        print("Name: " + self.user[2])
-        print("Email: " + self.user[0])
-        print("Year of Birth: " + str(self.user[3]))
-        print("Faculty: " + self.user[4] + "\n")
+        member_info = self.auth.db.get_member_info(self.user[0])
+        print(f"\n**** Member Profile: {member_info[0]} ****\n")
+        print("**** User Information ****")
+        print(f"Email: {member_info[1]}\nBirth Year: {member_info[2]}\n")
+
+        borrowing_info = self.auth.db.get_borrowing_info(self.user[0])
+        print("**** Borrowing Information ****")
+        print(f"Total Books Borrowed: {borrowing_info[0]}\nCurrent Books Borrowed: {borrowing_info[1]}\nOverdue Books Borrowed: {borrowing_info[2]}\n")
+
+        penalty_info = self.auth.db.get_penalty_info(self.user[0])
+        print("**** Penalty Information ****")
+        print(f"Unpaid Penalties: {penalty_info[0]}\nTotal Penalty Debt: {penalty_info[1]}\n")
 
     def show_member_menu(self):
         while True:
