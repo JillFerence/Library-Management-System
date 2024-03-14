@@ -5,8 +5,7 @@ class Auth:
     def __init__(self, db_handler):
         self.db = db_handler
     
-    def login(self):
-        email = input("Enter Email: ")
+    def login(self, email):
         password = gp.getpass("Enter Password: ")
 
         user_query = "SELECT * FROM members WHERE email = ? AND passwd = ?"
@@ -30,9 +29,9 @@ class Auth:
         
         # If the user does not exist, let's register the user
         insert_query = "INSERT INTO members VALUES (?, ?, ?, ?, ?)"
-        self.db.execute(insert_query, (email, password, name, birthYear, faculty))
+        self.db.execute_query(insert_query, (email, password, name, birthYear, faculty))
         print("Signup successful!")
-        user = self.db.fetch_one(user_query, (email)) # Let's fetch the user again to return
+        user = self.db.fetch_one(user_query, (email,)) # Let's fetch the user again to return
 
         # Not sure if we really need all this Null checking, but let's keep it for now
         if user:

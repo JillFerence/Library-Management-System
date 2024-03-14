@@ -11,7 +11,7 @@ class DatabaseHandler:
             conn = sqlite3.connect(self.db_file)
             return conn
         except Error as e:
-            print(e)
+            print(DatabaseHandler.__name__ + ":", e)
 
     def execute_query(self, query, params):
         try:
@@ -20,7 +20,7 @@ class DatabaseHandler:
             self.conn.commit()
             return c
         except Error as e:
-            print(e)
+            print(DatabaseHandler.__name__ + ":", e)
 
     def fetch_one(self, query, params):
         c = self.execute_query(query, params)
