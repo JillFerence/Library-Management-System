@@ -12,10 +12,8 @@ class Auth:
         user = self.db.fetch_one(user_query, (email, password))
 
         if user:
-            print("Successfully logged in!\nWelcome " + user[2] + "\n") # user[2] is the name of the user
             return user # Let's return the user object for now
         else:
-            print("Incorrect User Information\n")
             return None
         
     
@@ -24,7 +22,6 @@ class Auth:
         user_query = "SELECT * FROM members WHERE email = ?"
         user = self.db.fetch_one(user_query, (email,))
         if user:
-            print("This account is already registered!")
             return None
         
         # If the user does not exist, let's register the user
@@ -39,6 +36,3 @@ class Auth:
         else:
             return None
         
-    def logout(self):
-        print("Logged out successfully!")
-        pass
