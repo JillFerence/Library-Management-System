@@ -12,7 +12,6 @@ class DatabaseHandler:
     def __init__(self, db_file):
         self.db_file = db_file
         self.conn = self.create_connection()
-        self.shown_book_ids = [] # List of book ids that are currently displayed
     
     """
     ******************************
@@ -156,7 +155,7 @@ class DatabaseHandler:
     """
 
     # Retrieves all books with the title or author containing a given keyword
-    def get_book_search_info(self, keyword, limit, page = 1):
+    def get_book_search_info(self, keyword, limit, shown_book_ids, page = 1):
         offset = (page - 1) * limit # Offset for the query to handle paginatio and skip that many rows
         script = """
         -- system must display book id, title, author, publish year, average rating, and whether the book is available or on borrow
@@ -189,7 +188,7 @@ class DatabaseHandler:
         OFFSET ?
         """
         books = self.fetch_all(script, (keyword, keyword, limit, offset))
-        self.shown_book_ids.extend([str(book[0]) for book in books]) 
+        shown_book_ids.extend([str(book[0]) for book in books]) 
         return books
     
     # Checks if the book id is a valid book id in the book list
@@ -200,8 +199,8 @@ class DatabaseHandler:
             return False
     
     # Checks if the book id is in the search list that was displayed to the user
-    def check_book_id_in_list(self, book_id):
-        return book_id in self.shown_book_ids
+    def check_book_id_in_list(self, book_id, shown_book_ids):
+        return book_id in shown_book_ids
     
     # Checks the availability of the book
     def check_book_id_availability(self, book_id):

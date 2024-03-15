@@ -10,6 +10,7 @@ class UI:
     def __init__(self, auth_system):
         self.auth = auth_system
         self.user = None
+        self.shown_book_ids = [] # List of book ids that are currently displayed
 
     """
     ******************************
@@ -174,6 +175,7 @@ class UI:
 
     # Displays the book search introction
     def show_book_search_start(self):
+        self.shown_book_ids = []
         print("\n**** Book Search ****")
         keyword = input("Enter a keyword to begin the book search: ")
         print("Here is a list of books with titles or authors that match the keyword " + keyword + ": \n")
@@ -182,7 +184,7 @@ class UI:
     # Organizes the display of books and options in the book search
     def show_book_search_items(self, keyword, page):
         limit = 5 # Book display limit
-        books = self.auth.db.get_book_search_info(keyword, limit, page)
+        books = self.auth.db.get_book_search_info(keyword, limit, self.shown_book_ids, page)
         self.show_book_search_books(books)
         # Check if there are more than the limit number of books to display
         more_books = False
@@ -214,8 +216,9 @@ class UI:
         while(1):
             print("\n1. See More Books")
             print("2. Borrow a Book")
-            print("3. Main Menu")
-            option = input("Enter choice: \n")
+            print("3. Start a New Book Search")
+            print("4. Main Menu")
+            option = input("Enter choice: ")
             if option == "1":
                 if more_books: # If there is more books that can be displayed that match the keyword
                     self.show_book_search_items(keyword, page = page + 1)
@@ -225,6 +228,8 @@ class UI:
             elif option == "2":
                 self.show_book_search_borrow(more_books, keyword, page)
             elif option == "3":
+                self.show_book_search_start()
+            elif option == "4":
                 self.show_member_menu()
             else:
                 print("Invalid Input. Please try again.")
@@ -239,7 +244,7 @@ class UI:
             print("Invalid book ID, this book ID does not exist in the system.")
             return
         # If the book is not apart of the search list 
-        in_list = self.auth.db.check_book_id_in_list(book_id)
+        in_list = self.auth.db.check_book_id_in_list(book_id, self.shown_book_ids)
         if in_list == False:
             print("You must select a book ID that is in the search list.")
             return
