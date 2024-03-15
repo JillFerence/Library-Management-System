@@ -1,11 +1,15 @@
 import getpass as gp
 
 class UI:
-    def __init__(self, auth_system):
+    def __init__(self, auth_system, borrowing_manager, book_manager, penalty_manager, profile_manager):
         self.auth = auth_system
+        self.borrowing_manager = borrowing_manager
+        self.book_manager = book_manager
+        self.penalty_manager = penalty_manager
+        self.profile_manager = profile_manager
         self.user = None
 
-    def show_member_profile(self):  
+    def show_member_profile(self):  # TODO make this use profile_manager.py!!!
         member_info = self.auth.db.get_member_info(self.user[0])
         print(f"\n**** Member Profile: {member_info[0]} ****\n")
         print("**** User Information ****")
@@ -18,6 +22,17 @@ class UI:
         penalty_info = self.auth.db.get_penalty_info(self.user[0])
         print("**** Penalty Information ****")
         print(f"Unpaid Penalties: {penalty_info[0]}\nTotal Penalty Debt: {penalty_info[1]}\n")
+
+    def return_a_book(self):
+        print("\n**** Return a Book ****\n")
+
+        print("My Borrowed Books: ")
+        self.borrowing_manager.show_borrowed_books(self.user[0])
+
+        bid = input("Enter Borrow ID: of the book you want to return: ")
+
+        self.borrowing_manager.return_book(self.user[0], bid)
+        
 
     def show_member_menu(self):
         while True:
@@ -32,7 +47,7 @@ class UI:
             if choice == "1":
                 self.show_member_profile()
             elif choice == "2":
-                pass #TODO implement this
+                self.return_a_book()
             elif choice == "3":
                 pass #TODO implement this
             elif choice == "4":
