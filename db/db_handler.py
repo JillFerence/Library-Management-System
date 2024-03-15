@@ -105,5 +105,10 @@ class DatabaseHandler:
         self.execute_query(query, (pid,))
         
 
-    def pay_pentalty_partially(self, pid, payment):
-        pass
+    def pay_pentalty_partially(self, pid, payment, paid_amount):
+        query = """
+            UPDATE penalties
+            SET paid_amount = ?
+            WHERE pid = ?
+            """
+        self.execute_query(query, (paid_amount + payment, pid))

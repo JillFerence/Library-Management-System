@@ -76,7 +76,7 @@ class UI:
                     self.auth.db.pay_penalty_in_full(pid)
                     return
                 else:
-                    self.auth.db.pay_pentalty_partially(pid, payment)
+                    self.auth.db.pay_pentalty_partially(pid, payment, row[4])
                     return
         if(pidFlag):
             print("Penalty ID not found")
