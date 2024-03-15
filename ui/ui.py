@@ -36,7 +36,7 @@ class UI:
             elif choice == "3":
                 pass #TODO implement this
             elif choice == "4":
-                pass #TODO implement this
+                self.show_penalty_menu()
             elif choice == "5":
                 self.logout()
                 break
@@ -59,6 +59,37 @@ class UI:
         else:
             print("Invalid Input. Please try again.")
             self.show_start_menu()
+
+    def process_payment(self, penatlies):
+        pid = input("\n\nEnter Penalty ID: ")
+        payment = input("Enter Payment Amount: ")
+        for row in penatlies:
+            if row[0] == pid:
+                amount_owed = row[3] - row[4]
+                if payment > amount_owed:
+                    print("Payment cannot be more than owed amount")
+                    self.process_payment()
+                elif payment < 0:
+                    print("Cannot pay a negative amount")
+                    self.process_payment()
+                elif payment == amount_owed:
+                    self.auth.db.pay_penalty_in_full(pid)
+                else:
+                    self.auth.db.pay_pentalty_partially(pid, payment)   
+            else:
+                print("Penalty ID not found")
+                self.process_payment()
+
+    
+        
+
+    def show_penalty_menu(self):
+        print("\n**** Penalties ****")
+        print("Penalty ID | Title | Borrow ID | Amount Owed")
+        penalties = self.auth.db.get_penalties(self.user[0])
+        for row in penalties:
+            print("  %s |  %s | %s | $%d" % (row[0], row[1], row[2], row[3] - row[4]))
+        self.process_payment(self, penalties)
 
     def login(self):
         print("\n**** Login ****")

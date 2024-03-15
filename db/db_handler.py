@@ -85,3 +85,25 @@ class DatabaseHandler:
             """
         penalty_info = self.fetch_one(penalty_query, (email,))
         return penalty_info # No need to handle Null here as we are doing it in the query itself
+    
+    def get_penalties(self, email):
+        query = """
+            SELECT pid, books.title, borrowings.bid, amount, paid_amount
+            FROM penalties, books
+            INNER JOIN borrowings ON penalties.bid = borrowings.bid
+            WHERE borrowings.member = ? AND (paid_amount < amount)
+            AND (books.book_id = borrowings.book_id)
+            """
+        penalties = self.fetch_all(query, (email,))
+        return penalties
+    
+    def pay_penalty_in_full(self, pid):
+        query = """
+            DELETE FROM penalties
+            WHERE pid = ?
+            """
+        self.execute_query(self, query, pid)
+        
+
+    def pay_pentalty_partially(self, email, pid, payment):
+        pass
