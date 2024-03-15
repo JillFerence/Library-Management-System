@@ -1,10 +1,12 @@
 import sqlite3
 from sqlite3 import Error
+import datetime
 
 class DatabaseHandler:
     def __init__(self, db_file):
         self.db_file = db_file
         self.conn = self.create_connection()
+        self.shown_book_ids = []
 
     def create_connection(self):
         try:
@@ -114,3 +116,74 @@ class DatabaseHandler:
             WHERE pid = ?
             """
         self.execute_query(query, (paid_amount + payment, pid))
+
+    # ******************
+    # BOOK SEARCH
+    # ******************
+        
+    def get_book_search_info(self, keyword, limit, page = 1):
+        offset = (page - 1) * limit
+        script = """
+        -- system must display book id, title, author, publish year, average rating, and whether the book is available or on borrow
+        SELECT k.book_id, k.title, k.author, k.pyear AS publish_year, AVG(r.rating) AS average_rating,
+            -- whether the book is available (is not in borrowings) or on borrow (is in borrowings)
+            CASE 
+                WHEN b.book_id IS NULL THEN 'Available'
+                ELSE 'On Borrow'
+            END AS availability
+        FROM
+            books k
+        -- join books and reviews to get books with reviews               
+        LEFT JOIN 
+            reviews r ON k.book_id = r.book_id
+        -- join books and borrowings, consider only current borrowings for 'On Borrow' where the end date is ahead of the current date
+        LEFT JOIN 
+            borrowings b ON k.book_id = b.book_id AND (b.end_date > DATETIME('now') OR b.end_date IS NULL)
+        -- retrive books in which the title or author contain the keyword 
+        -- '%' || ? || '%' = 0 or more characters + keyword + 0 or more characters
+        WHERE 
+            k.title LIKE '%' || ? || '%' OR
+            k.author LIKE '%' || ? || '%' 
+        GROUP BY 
+            k.book_id, k.title, k.author, k.pyear 
+        -- sorted as books w/ matching title first (ascending order), books w/ matching author second(ascending order)
+        ORDER BY k.title, k.author  
+        -- only return 5 books at each request
+        LIMIT ? 
+        -- skip a number of rows to show more books
+        OFFSET ?
+        """
+        books = self.fetch_all(script, (keyword, keyword, limit, offset))
+        self.shown_book_ids.extend([str(book[0]) for book in books]) 
+        return books
+    
+    # Checks if the book id is a valid book id in the book list
+    def check_book_id_validity(self, book_id):
+        query = "SELECT COUNT(*) FROM books k WHERE k.book_id = ?"
+        counts = self.fetch_one(query, (book_id,))
+        if counts[0] == 0:
+            return False
+    
+    # Checks the availability of the book
+    def check_book_id_availability(self, book_id):
+        # If the book is not available to borrow
+        query = "SELECT COUNT(*) FROM borrowings b WHERE b.book_id = ? AND (end_date > DATETIME('now') OR end_date IS NULL)"
+        counts = self.fetch_one(query, (book_id,))
+        if counts[0] > 0:
+            return False
+        # If the book is available to borrow
+        else:
+            return True
+        
+    def check_book_id_in_list(self, book_id):
+        return book_id in self.shown_book_ids
+    
+    def borrow_book(self, email, book_id):
+        start_date = datetime.datetime.now()
+        end_date = None
+        query = "INSERT INTO borrowings (member, book_id, start_date, end_date) VALUES (?, ?, ?, ?)"
+        borrowed = self.execute_query(query, (email, book_id, start_date, end_date))
+
+
+        
+    
