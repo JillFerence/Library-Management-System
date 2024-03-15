@@ -89,11 +89,11 @@ class DatabaseHandler:
     # Returns a users penatlies
     def get_penalties(self, email):
         query = """
-            SELECT pid, books.title, borrowings.bid, amount, paid_amount
+            SELECT pid, books.title, borrowings.bid, amount, IFNULL(paid_amount, 0)
             FROM penalties, books
             INNER JOIN borrowings ON penalties.bid = borrowings.bid
-            WHERE borrowings.member = ? AND (paid_amount < amount)
-            AND (books.book_id = borrowings.book_id)
+            WHERE borrowings.member = ? AND (IFNULL(paid_amount, 0) < amount)
+            AND (books.book_id = borrowings.book_id) AND (0 < amount)
             """
         penalties = self.fetch_all(query, (email,))
         return penalties
