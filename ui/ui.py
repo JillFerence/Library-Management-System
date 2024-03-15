@@ -80,7 +80,9 @@ class UI:
                     return
         if(pidFlag):
             print("Penalty ID not found")
-        self.process_payment(penatlies)
+        cFlag = input("Do you want to retry? (y/n): ")
+        if(cFlag == "y" or cFlag == "Y"):
+            self.process_payment(penatlies)
 
     def show_penalty_menu(self):
         print("\n**** Penalties ****")
