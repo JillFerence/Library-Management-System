@@ -6,10 +6,44 @@ Group member names and ccids (3-4 members)
   lgjones, Lynden  
 
 # Group work break-down strategy
-Please add
+- First, we decided to break up the project into 5 sections
+  1) Login Screen
+  2) Member Profile
+  3) Returning a Book
+  4) Search for Books
+  5) Pay a Penalty
+- Second, we looked at the size and complexity of each section
+  1) Login Screen: Medium 
+  2) Member Profile: Small 
+  3) Returning a Book: Large
+  4) Search for Books: Large
+  5) Pay a Penalty: Small
+- Third, we divided up the tasks among the three of us to be relatively equal
+  1) Login Screen: Hunter 
+  2) Member Profile: Hunter 
+  3) Returning a Book: Lynden
+  4) Search for Books: Jill
+  5) Pay a Penalty: Hunter
+- Other smaller tasks included were shared by everyone
+  - Setting up the files for the project
+  - Adding docstrings and comments
+  - Testing edge cases
 
 # Code execution guide
-Please add
+In the project directory, run the command line:   
+"python3 main.py database" OR
+"python3 main.py database.db" OR
+"python main.py database" OR
+"python main.py database.db" 
+depending on your system and database file.
 
 # Names of anyone you have collaborated with (as much as it is allowed within the course policy) or a line saying that you did not collaborate with anyone else. 
-  Our group did not collaborate with anyone (As of yet)
+  Our group did not collaborate with anyone.
+
+# Resources
+- Jill:
+  - [SQL Concatenation Operator](https://www.ibm.com/docs/en/informix-servers/14.10?topic=expression-concatenation-operator)
+  - [SQL Order By Two Columns](https://learnsql.com/cookbook/how-to-order-by-two-columns-in-sql/#:~:text=After%20the%20ORDER%20BY%20keyword,descending)%20separately%20for%20each%20column.)
+  - [SQL DATE, TIME, DATEIME](https://hyperskill.org/learn/step/27151)
+  - [Python DateTime](https://www.w3schools.com/python/python_datetime.asp)
+  - [SQL Limit & Offset](https://www.sqltutorial.org/sql-limit/)
