@@ -24,7 +24,7 @@ Group member names and ccids (3-4 members)
   3) Returning a Book: Lynden
   4) Search for Books: Jill
   5) Pay a Penalty: Hunter
-- Other smaller tasks were shared by everyone
+- Other tasks were shared by everyone at various stages of the project
   - Setting up the files for the project
   - Adding docstrings and comments
   - Testing edge cases
@@ -43,7 +43,7 @@ depending on your system and database file.
 # Resources
 - Jill:
   - [SQL Concatenation Operator](https://www.ibm.com/docs/en/informix-servers/14.10?topic=expression-concatenation-operator)
-  - [SQL Order By Two Columns](https://learnsql.com/cookbook/how-to-order-by-two-columns-in-sql/#:~:text=After%20the%20ORDER%20BY%20keyword,descending)%20separately%20for%20each%20column.)
+  - [SQL Order By Two Columns](https://learnsql.com/cookbook/how-to-order-by-two-columns-in-sql/#:~:text=After%20the%20ORDER%20BY%20keyword,descending\)%20separately%20for%20each%20column.)
   - [SQL DATE, TIME, DATEIME](https://hyperskill.org/learn/step/27151)
   - [Python DateTime](https://www.w3schools.com/python/python_datetime.asp)
   - [SQL Limit & Offset](https://www.sqltutorial.org/sql-limit/)
