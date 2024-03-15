@@ -102,8 +102,8 @@ class DatabaseHandler:
             DELETE FROM penalties
             WHERE pid = ?
             """
-        self.execute_query(self, query, pid)
+        self.execute_query(query, (pid,))
         
 
-    def pay_pentalty_partially(self, email, pid, payment):
+    def pay_pentalty_partially(self, pid, payment):
         pass
