@@ -1,8 +1,12 @@
 import getpass as gp
 
 class UI:
-    def __init__(self, auth_system):
+    def __init__(self, auth_system, borrowing_manager, book_manager, penalty_manager, profile_manager):
         self.auth = auth_system
+        self.borrowing_manager = borrowing_manager
+        self.book_manager = book_manager
+        self.penalty_manager = penalty_manager
+        self.profile_manager = profile_manager
         self.user = None
 
     def show_member_profile(self):  # TODO make this use profile_manager.py!!!
