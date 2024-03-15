@@ -1,24 +1,45 @@
 import getpass as gp
 
+"""
+******************************
+USER INTERFACE CLASS
+******************************
+"""
 class UI:
+    # Initialization method for the User Interface class
     def __init__(self, auth_system):
         self.auth = auth_system
         self.user = None
 
-    def show_member_profile(self):  
+    """
+    ******************************
+    MEMBER PROFILE UI METHODS
+    ******************************
+    """
+
+    # Displays the member profile information
+    def show_member_profile(self): 
+        # Displays the user information 
         member_info = self.auth.db.get_member_info(self.user[0])
         print(f"\n**** Member Profile: {member_info[0]} ****\n")
         print("**** User Information ****")
         print(f"Email: {member_info[1]}\nBirth Year: {member_info[2]}\n")
-
+        # Displays the borrowing information 
         borrowing_info = self.auth.db.get_borrowing_info(self.user[0])
         print("**** Borrowing Information ****")
         print(f"Total Books Borrowed: {borrowing_info[0]}\nCurrent Books Borrowed: {borrowing_info[1]}\nOverdue Books Borrowed: {borrowing_info[2]}\n")
-
+        # Displays the penalty information 
         penalty_info = self.auth.db.get_penalty_info(self.user[0])
         print("**** Penalty Information ****")
         print(f"Unpaid Penalties: {penalty_info[0]}\nTotal Penalty Debt: {penalty_info[1]}\n")
+    
+    """
+    ******************************
+    MAIN MENU UI METHODS
+    ******************************
+    """
 
+    # Displays the member main menu 
     def show_member_menu(self):
         while True:
             print("\n**** Member Menu ****")
@@ -43,6 +64,7 @@ class UI:
             else:
                 print("Invalid Input. Please try again.")
 
+    # Displays the start main menu
     def show_start_menu(self):
         print("\n**** Welcome! ****")
         print("1. Login")
@@ -60,6 +82,12 @@ class UI:
         else:
             print("Invalid Input. Please try again.")
             self.show_start_menu()
+    
+    """
+    ******************************
+    PAY PENALTY UI METHODS
+    ******************************
+    """
 
     # Prompts user to select penalty ID as well as payment amount
     # Ensures proper data entry, as well as calls to database handler
@@ -71,14 +99,14 @@ class UI:
             if row[0] == pid:
                 pidFlag = False
                 amount_owed = row[3] - row[4]
-                if payment > amount_owed:
+                if payment > amount_owed: # If user trying to pay more than the amount owed
                     print("Payment cannot be more than owed amount")
-                elif payment <= 0:
+                elif payment <= 0: # If user trying to pay with an invalid amount
                     print("Must pay more than $0")
-                elif payment == amount_owed:
+                elif payment == amount_owed: # If user payed exactly the amount owed
                     self.auth.db.pay_penalty_in_full(pid)
                     return
-                else:
+                else: # If user payed a portion of the amount owed
                     self.auth.db.pay_pentalty_partially(pid, payment, row[4])
                     return
         if(pidFlag):
@@ -97,17 +125,25 @@ class UI:
             print("  %s |  %s | %s | $%d" % (row[0], row[1], row[2], row[3] - row[4]))
         self.process_payment(penalties)
 
+    """
+    ******************************
+    LOGIN/SIGN UP UI METHODS
+    ******************************
+    """
+    
+    # Login method for the user
     def login(self):
         print("\n**** Login ****")
         email = input("Email: ")
         self.user = self.auth.login(email) # This is the reason for the auth handler
 
-        if self.user is not None:
+        if self.user is not None: # If the member exists
             self.show_member_menu()
         else:
             print("Invalid email or password. Try again or sign up if you don't already have an account.")
             self.show_start_menu()
     
+    # Sign up method for the user
     def signup(self):
         print("\n**** Sign Up ****")
         email = input("Fill information below\nEmail: ")
@@ -124,19 +160,23 @@ class UI:
             print("This account is already registered!")
             self.show_start_menu()
 
+    # Logout method for the user
     def logout(self):
         self.user = None
         print("Logged out successfully!")
         self.show_start_menu()
 
-    # ******************
-    # BOOK SEARCH
-    # ******************
-    
-    # Displays the book search title and prompt the user for a keyword
+    """
+    ******************************
+    BOOK SEARCH UI METHODS
+    ******************************
+    """
+
+    # Displays the book search introction
     def show_book_search_start(self):
-        keyword = input("\n**** Book Search ****\nEnter a keyword: ")
-        print("\nBooks that match the keyword " + keyword + ":\n")
+        print("\n**** Book Search ****")
+        keyword = input("Enter a keyword to begin the book search: ")
+        print("Here is a list of books with titles or authors that match the keyword " + keyword + ": \n")
         self.show_book_search_items(keyword, page = 1)
     
     # Organizes the display of books and options in the book search
@@ -153,6 +193,7 @@ class UI:
     # Displays the books in the book search
     def show_book_search_books(self, books):
         for k in books:
+            # If any of the information is missing, default to N/A
             if k[0] == None: book_id = "N/A" 
             else: book_id = str(k[0])
             if k[1] == None: title = "N/A" 
@@ -166,15 +207,19 @@ class UI:
             if k[5] == None: availability = "N/A" 
             else: availability = str(k[5])
 
-            print("Book ID: " + book_id + " Title: " + title + " Author: " + author + " Publish Year: " + pyear + " Average Rating: " + avg_rating + " Availability: " + availability)
+            print("  Book ID: " + book_id + " Title: " + title + " Author: " + author + " Publish Year: " + pyear + " Average Rating: " + avg_rating + " Availability: " + availability)
 
+    # Displays the book search options 
     def show_book_search_options(self, more_books, keyword, page):
         while(1):
-            option = input("\n1. See More Books\n2. Borrow a Book\n3. Main Menu\n(Enter corresponding number): ")
+            print("\n1. See More Books")
+            print("2. Borrow a Book")
+            print("3. Main Menu")
+            option = input("Enter choice: \n")
             if option == "1":
-                if more_books:
+                if more_books: # If there is more books that can be displayed that match the keyword
                     self.show_book_search_items(keyword, page = page + 1)
-                else:
+                else: # If there are no more books that can be displayed that match the keyword
                     print("There are no more books with this search.")
                     self.show_book_search_options(more_books, keyword, page)
             elif option == "2":
@@ -182,19 +227,21 @@ class UI:
             elif option == "3":
                 self.show_member_menu()
             else:
-                print("Invalid Input")
+                print("Invalid Input. Please try again.")
 
+    # Displays the prompt when the user wants to borrow a book from the book search list
     def show_book_search_borrow(self, more_books, keyword, page):
-        book_id = input("\nEnter a the book ID of the book you want to borrow: ")
+        print("**** Borrow a Book ****")
+        book_id = input("Enter a the book ID of the book you want to borrow: ")
         # If the book id is invalid
         validity = self.auth.db.check_book_id_validity(book_id)
         if validity == False:
-            print("Invalid book ID.")
+            print("Invalid book ID, this book ID does not exist in the system.")
             return
         # If the book is not apart of the search list 
         in_list = self.auth.db.check_book_id_in_list(book_id)
         if in_list == False:
-            print("You must select a book ID that is in the search list shown above.")
+            print("You must select a book ID that is in the search list.")
             return
         # If the book is available to borrow
         availability = self.auth.db.check_book_id_availability(book_id)
@@ -203,16 +250,13 @@ class UI:
         else:
             print("This book is available to borrow!")
             user_input = input("You will have 20 days to return this book after borrowing it. Are you sure you want to borrow this book? (Y|N): ")
-            if user_input == 'Y':
-                self.auth.db.borrow_book(self.user[0], book_id)
-                print("The book was borrowed successfully, you have 20 days to return the book.")
-                self.show_book_search_options(more_books, keyword, page)
-            elif user_input == 'N':
-                print("Process cancelled, the book was not borrowed.")
-                self.show_book_search_options(more_books, keyword, page)
-            else:
-                print("Invalid Input (Y|N)")
-
-
-       
-    
+            while(1):
+                if user_input == 'Y':
+                    self.auth.db.borrow_book(self.user[0], book_id)
+                    print("The book was borrowed successfully, you have 20 days to return the book.")
+                    self.show_book_search_options(more_books, keyword, page)
+                elif user_input == 'N':
+                    print("Process cancelled, the book was not borrowed.")
+                    self.show_book_search_options(more_books, keyword, page)
+                else:
+                    print("Invalid Input. Please enter Y for yes or N for no.")

@@ -1,10 +1,17 @@
 import getpass as gp
 from db.db_handler import DatabaseHandler
 
+"""
+******************************
+AUTHENTICATION CLASS
+******************************
+"""
 class Auth:
+    # Initialization method for the auth class
     def __init__(self, db_handler):
         self.db = db_handler
     
+    # Method for the user to login
     def login(self, email):
         password = gp.getpass("Enter Password: ")
 
@@ -16,7 +23,7 @@ class Auth:
         else:
             return None
         
-    
+    # Method for the user to signup
     def signup(self, email, password, name, birthYear, faculty):
         # First let's check if the user already exists
         user_query = "SELECT * FROM members WHERE email = ?"
@@ -35,4 +42,3 @@ class Auth:
             return user
         else:
             return None
-        
