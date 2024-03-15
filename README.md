@@ -30,13 +30,11 @@ Group member names and ccids (3-4 members)
   - Testing edge cases
 
 # Code execution guide
-In the project directory, run the command line:  
-
-"python3 main.py database" OR
-"python3 main.py database.db" OR
-"python main.py database" OR
-"python main.py database.db" 
-
+In the project directory, run the command line:<br>  
+"python3 main.py database" OR<br>
+"python3 main.py database.db" OR<br>
+"python main.py database" OR<br>
+"python main.py database.db"<br>
 depending on your system and database file.
 
 # Names of anyone you have collaborated with (as much as it is allowed within the course policy) or a line saying that you did not collaborate with anyone else. 
