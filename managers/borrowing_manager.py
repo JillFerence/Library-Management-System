@@ -20,6 +20,7 @@ class BorrowingManager:
 
         if borrowings:
             print("**** Borrowed Books ****")
+            print("Borrow ID | Title | Borrowed on | Due Date | Status")
             for b in borrowings:
                 # If the book is overdue, let's show that to the user
                 due_date = julian_to_date(b[3])
@@ -27,7 +28,7 @@ class BorrowingManager:
 
                 overdue_status = "Overdue" if due_date < today else f"Days left: {(due_date - today).days}"
 
-                print(f"Borrow ID: {b[0]}, Title: {b[1]}, Borrowed on: {b[2]}, Due Date: {due_date}, {overdue_status}")
+                print(f"{b[0]} | {b[1]} | {b[2]} | {due_date} | {overdue_status}")
 
 
     def return_book(self, email, bid):

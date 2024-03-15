@@ -77,11 +77,13 @@ class DatabaseHandler:
         return total_borrowed, current_borrowed, overdue_borrowings
     
     def get_penalty_info(self, email):
-        penalty_query = """
-            SELECT COUNT(*), IFNULL(SUM(amount - IFNULL(paid_amount, 0)), 0)
+        penalty_query = """SELECT 
+            COUNT(pid) AS total_penalties, 
+            IFNULL(SUM(amount - IFNULL(paid_amount, 0)), 0) AS total_outstanding
             FROM penalties
             INNER JOIN borrowings ON penalties.bid = borrowings.bid
-            WHERE borrowings.member = ? AND (paid_amount IS NULL OR paid_amount < amount)
+            INNER JOIN books ON books.book_id = borrowings.book_id
+            WHERE borrowings.member = ? AND IFNULL(paid_amount, 0) < amount AND amount > 0;
             """
         penalty_info = self.fetch_one(penalty_query, (email,))
         return penalty_info # No need to handle Null here as we are doing it in the query itself
