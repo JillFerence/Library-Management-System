@@ -24,7 +24,7 @@ Group member names and ccids (3-4 members)
   3) Returning a Book: Lynden
   4) Search for Books: Jill
   5) Pay a Penalty: Hunter
-- Other smaller tasks included were shared by everyone
+- Other smaller tasks were shared by everyone
   - Setting up the files for the project
   - Adding docstrings and comments
   - Testing edge cases
