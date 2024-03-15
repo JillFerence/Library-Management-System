@@ -7,8 +7,12 @@ USER INTERFACE CLASS
 """
 class UI:
     # Initialization method for the User Interface class
-    def __init__(self, auth_system):
+    def __init__(self, auth_system, borrowing_manager, book_manager, penalty_manager, profile_manager):
         self.auth = auth_system
+        self.borrowing_manager = borrowing_manager
+        self.book_manager = book_manager
+        self.penalty_manager = penalty_manager
+        self.profile_manager = profile_manager
         self.user = None
         self.shown_book_ids = [] # List of book ids that are currently displayed
 
@@ -17,9 +21,8 @@ class UI:
     MEMBER PROFILE UI METHODS
     ******************************
     """
-
     # Displays the member profile information
-    def show_member_profile(self): 
+    def show_member_profile(self):  # TODO make this use profile_manager.py!!!
         # Displays the user information 
         member_info = self.auth.db.get_member_info(self.user[0])
         print(f"\n**** Member Profile: {member_info[0]} ****\n")
@@ -36,10 +39,25 @@ class UI:
     
     """
     ******************************
+    BOOK RETURN UI METHODS
+    ******************************
+    """
+    # Method to display the book return process
+    def return_a_book(self):
+        print("\n**** Return a Book ****\n")
+
+        print("My Borrowed Books: ")
+        self.borrowing_manager.show_borrowed_books(self.user[0])
+
+        bid = input("Enter Borrow ID: of the book you want to return: ")
+
+        self.borrowing_manager.return_book(self.user[0], bid)
+    
+    """
+    ******************************
     MAIN MENU UI METHODS
     ******************************
     """
-
     # Displays the member main menu 
     def show_member_menu(self):
         while True:
@@ -54,7 +72,7 @@ class UI:
             if choice == "1":
                 self.show_member_profile()
             elif choice == "2":
-                pass #TODO implement this
+                self.return_a_book()
             elif choice == "3":
                 self.show_book_search_start()
             elif choice == "4":
@@ -89,7 +107,6 @@ class UI:
     PAY PENALTY UI METHODS
     ******************************
     """
-
     # Prompts user to select penalty ID as well as payment amount
     # Ensures proper data entry, as well as calls to database handler
     def process_payment(self, penatlies):
@@ -131,7 +148,6 @@ class UI:
     LOGIN/SIGN UP UI METHODS
     ******************************
     """
-    
     # Login method for the user
     def login(self):
         print("\n**** Login ****")
@@ -172,7 +188,6 @@ class UI:
     BOOK SEARCH UI METHODS
     ******************************
     """
-
     # Displays the book search introction
     def show_book_search_start(self):
         self.shown_book_ids = []
