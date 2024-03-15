@@ -29,7 +29,7 @@ class UI:
         print("My Borrowed Books: ")
         self.borrowing_manager.show_borrowed_books(self.user[0])
 
-        bid = input("Enter Book ID: of the book you want to return: ")
+        bid = input("Enter Borrow ID: of the book you want to return: ")
 
         self.borrowing_manager.return_book(self.user[0], bid)
         

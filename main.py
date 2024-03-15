@@ -19,9 +19,9 @@ def main():
     db = DatabaseHandler(db_path)
     auth = Auth(db)
 
-    borrowing_manager = BorrowingManager(db)
-    book_manager = BookManager(db)
     penalty_manager = PenaltyManager(db)
+    borrowing_manager = BorrowingManager(db, penalty_manager)
+    book_manager = BookManager(db)
     profile_manager = ProfileManager(db)
 
 
