@@ -30,7 +30,7 @@ Group member names and ccids (3-4 members)
   - Testing edge cases
 
 # Code execution guide
-In the project directory, run the command line:<br>  
+In the project directory, run the command line:  
 "python3 main.py database" OR<br>
 "python3 main.py database.db" OR<br>
 "python main.py database" OR<br>
