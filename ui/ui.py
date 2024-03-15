@@ -60,6 +60,8 @@ class UI:
             print("Invalid Input. Please try again.")
             self.show_start_menu()
 
+    # Prompts user to select penalty ID as well as payment amount
+    # Ensures proper data entry, as well as calls to database handler
     def process_payment(self, penatlies):
         pidFlag = True
         pid = int(input("\n\nEnter Penalty ID: "))
@@ -84,6 +86,8 @@ class UI:
         if(cFlag == "y" or cFlag == "Y"):
             self.process_payment(penatlies)
 
+    # Displays list of penalties using get_penalties in the db handler,
+    # Calls process_payment so a user can interact with the penalties
     def show_penalty_menu(self):
         print("\n**** Penalties ****")
         print("Penalty ID | Title | Borrow ID | Amount Owed")

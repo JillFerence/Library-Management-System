@@ -86,6 +86,7 @@ class DatabaseHandler:
         penalty_info = self.fetch_one(penalty_query, (email,))
         return penalty_info # No need to handle Null here as we are doing it in the query itself
     
+    # Returns a users penatlies
     def get_penalties(self, email):
         query = """
             SELECT pid, books.title, borrowings.bid, amount, paid_amount
@@ -97,6 +98,7 @@ class DatabaseHandler:
         penalties = self.fetch_all(query, (email,))
         return penalties
     
+    # Deletes penalty, used when payment matches exactly
     def pay_penalty_in_full(self, pid):
         query = """
             DELETE FROM penalties
@@ -104,7 +106,7 @@ class DatabaseHandler:
             """
         self.execute_query(query, (pid,))
         
-
+    # Updates penalty entries with new partial payment
     def pay_pentalty_partially(self, pid, payment, paid_amount):
         query = """
             UPDATE penalties
