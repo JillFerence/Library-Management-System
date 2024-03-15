@@ -72,8 +72,8 @@ class UI:
                 amount_owed = row[3] - row[4]
                 if payment > amount_owed:
                     print("Payment cannot be more than owed amount")
-                elif payment < 0:
-                    print("Cannot pay a negative amount")
+                elif payment <= 0:
+                    print("Must pay more than $0")
                 elif payment == amount_owed:
                     self.auth.db.pay_penalty_in_full(pid)
                     return
