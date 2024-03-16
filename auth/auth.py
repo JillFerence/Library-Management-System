@@ -34,7 +34,6 @@ class Auth:
         # If the user does not exist, let's register the user
         insert_query = "INSERT INTO members VALUES (?, ?, ?, ?, ?)"
         self.db.execute_query(insert_query, (email, password, name, birthYear, faculty))
-        print("Signup successful!")
         user = self.db.fetch_one(user_query, (email,)) # Let's fetch the user again to return
 
         # Not sure if we really need all this Null checking, but let's keep it for now
