@@ -111,26 +111,31 @@ class UI:
     # Ensures proper data entry, as well as calls to database handler
     def process_payment(self, penatlies):
         pidFlag = True
-        pid = int(input("\n\nEnter Penalty ID: "))
-        payment = int(input("Enter Payment Amount: "))
-        for row in penatlies:
-            if row[0] == pid:
-                pidFlag = False
-                amount_owed = row[3] - row[4]
-                if payment > amount_owed: # If user trying to pay more than the amount owed
-                    print("Payment cannot be more than owed amount")
-                elif payment <= 0: # If user trying to pay with an invalid amount
-                    print("Must pay more than $0")
-                elif payment == amount_owed: # If user payed exactly the amount owed
-                    self.auth.db.pay_penalty_in_full(pid)
-                    return
-                else: # If user payed a portion of the amount owed
-                    self.auth.db.pay_pentalty_partially(pid, payment, row[4])
-                    return
+        try:
+            pid = int(input("\n\nEnter Penalty ID: "))
+            payment = int(input("Enter Payment Amount: "))
+            for row in penatlies:
+                if row[0] == pid:
+                    pidFlag = False
+                    amount_owed = row[3] - row[4]
+                    if payment > amount_owed: # If user trying to pay more than the amount owed
+                        print("Payment cannot be more than owed amount")
+                    elif payment <= 0: # If user trying to pay with an invalid amount
+                        print("Must pay more than $0")
+                    elif payment == amount_owed: # If user payed exactly the amount owed
+                        self.auth.db.pay_penalty_in_full(pid)
+                        return
+                    else: # If user payed a portion of the amount owed
+                        self.auth.db.pay_pentalty_partially(pid, payment, row[4])
+                        return
+        except ValueError:
+            pidFlag = False
+            print("Invalid Input: Must use a whole number")
+
         if(pidFlag):
             print("Penalty ID not found")
-        cFlag = input("Do you want to retry? (y/n): ")
-        if(cFlag == "y" or cFlag == "Y"):
+        cFlag = input("Do you want to retry? (y/n): ").lower()
+        if(cFlag == "y"):
             self.process_payment(penatlies)
 
     # Displays list of penalties using get_penalties in the db handler,
