@@ -110,7 +110,7 @@ class UI:
     # Prompts user to select penalty ID as well as payment amount
     # Ensures proper data entry, as well as calls to database handler
     def process_payment(self, penatlies):
-        pidFlag = True
+        pidFlag = True # Identifies if the pid exists (true means not found)
         try:
             pid = int(input("\n\nEnter Penalty ID: "))
             payment = int(input("Enter Payment Amount: "))
