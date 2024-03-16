@@ -4,11 +4,19 @@ def julian_to_date(julian_day):
     unix_timestamp = (julian_day - 2440587.5) * 86400
     date = datetime.utcfromtimestamp(unix_timestamp).date()
     return date
+
+"""
+******************************
+BORROWING MANAGER CLASS
+******************************
+"""
 class BorrowingManager:
+    # Initialization method for the Borrowing Manager class
     def __init__(self, db_handler, penalty_manager):
         self.db = db_handler
         self.penalty_manager = penalty_manager
 
+    # Method to show the borrowed books
     def show_borrowed_books(self, email):
         query = """
         SELECT b.bid, bk.title, b.start_date, (julianday(b.start_date) + 20) as due_date
@@ -31,6 +39,7 @@ class BorrowingManager:
                 print(f"{b[0]} | {b[1]} | {b[2]} | {due_date} | {overdue_status}")
 
 
+    # Method to return a borrowed book
     def return_book(self, email, bid):
         borrowing_query = """
         SELECT start_date, book_id FROM borrowings WHERE bid = ? AND member = ?"""
@@ -51,6 +60,7 @@ class BorrowingManager:
 
         self.ask_for_review(book_id, email)
 
+    # Method to ask the user for a review of the returned book
     def ask_for_review(self, book_id, email):
         user_response = input("Would you like to leave a review for the book? (y/n): ")
         if user_response.lower() == "y":

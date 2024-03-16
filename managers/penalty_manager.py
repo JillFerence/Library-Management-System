@@ -1,9 +1,16 @@
 from datetime import datetime, timedelta
 
+"""
+******************************
+PENALTY MANAGER CLASS
+******************************
+"""
 class PenaltyManager:
+    # Initialization method for the Penalty Manager class
     def __init__(self, db_handler):
         self.db = db_handler
     
+    # Method to calculate the penalty of an overdue return
     def calculate_penalty(self, start_date):
         # Check for either format 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM:SS.SSSSSS'
         if len(start_date) > 10:
