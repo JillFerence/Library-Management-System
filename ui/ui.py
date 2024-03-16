@@ -250,6 +250,7 @@ class UI:
             print("3. Start a New Book Search")
             print("4. Main Menu")
             option = input("Enter choice: ")
+            print("\n")
             if option == "1":
                 if more_books: # If there is more books that can be displayed that match the keyword
                     self.show_book_search_items(keyword, page = page + 1)
