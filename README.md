@@ -51,3 +51,11 @@ depending on your system and database file.
   - [Python DateTime strptime](https://www.programiz.com/python-programming/datetime/strptime)
   - [Python Packages](https://docs.python.org/3/tutorial/modules.html)
   - [SQL Compare Two Dates](https://www.geeksforgeeks.org/sql-query-to-compare-two-dates/)
+- Hunter:
+  - [SQL Delete Data in Python](https://pynative.com/python-mysql-delete-data/)
+  - [SQL Delete Statement](https://www.w3schools.com/sql/sql_delete.asp)
+  - [Getpass Documentation](https://docs.python.org/3/library/getpass.html)
+  - [SQL Injection Testing](https://www.geeksforgeeks.org/authentication-bypass-using-sql-injection-on-login-page/)
+  - [SQL Update Statement](https://www.w3schools.com/sql/sql_update.asp)
+  - [SQL INSERT for Testing](https://www.w3schools.com/sql/sql_insert.asp)
+  - [Exception in Python](https://rollbar.com/blog/throwing-exceptions-in-python/)

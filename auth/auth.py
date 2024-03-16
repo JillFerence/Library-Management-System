@@ -28,8 +28,9 @@ class Auth:
         # First let's check if the user already exists
         user_query = "SELECT * FROM members WHERE email = ?"
         user = self.db.fetch_one(user_query, (email,))
+        # Raises exception if a user already exists
         if user:
-            return None
+            raise Exception("This account is already registered or there was an error in registration.")
         
         # If the user does not exist, let's register the user
         insert_query = "INSERT INTO members VALUES (?, ?, ?, ?, ?)"
