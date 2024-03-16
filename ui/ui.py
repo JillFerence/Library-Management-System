@@ -269,14 +269,14 @@ class UI:
             print("This book is not available to borrow at the moment.")
         else:
             print("This book is available to borrow!")
-            user_input = input("You will have 20 days to return this book after borrowing it. Are you sure you want to borrow this book? (Y|N): ")
             while(1):
-                if user_input == 'Y':
+                user_input = input("You will have 20 days to return this book after borrowing it. Are you sure you want to borrow this book? (Y|N): ")
+                if user_input.lower() == 'y':
                     self.auth.db.borrow_book(self.user[0], book_id)
                     print("The book was borrowed successfully, you have 20 days to return the book.")
                     self.show_book_search_options(more_books, keyword, page)
-                elif user_input == 'N':
+                elif user_input.lower() == 'n':
                     print("Process cancelled, the book was not borrowed.")
                     self.show_book_search_options(more_books, keyword, page)
                 else:
-                    print("Invalid Input. Please enter Y for yes or N for no.")
+                    print("Invalid Input. Please enter y for yes or n for no.")
