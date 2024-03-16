@@ -163,18 +163,34 @@ class UI:
     # Sign up method for the user
     def signup(self):
         print("\n**** Sign Up ****")
-        email = input("Fill information below\nEmail: ")
-        name = input("Name: ")
-        birthYear = input("Year of Birth: ")
-        faculty = input("Faculty: ")
-        password = gp.getpass("Enter new Password: ")
+
+        while True:
+            email = input("Fill information below\nEmail: ").strip()
+            if not email:
+                print("Email cannot be empty. Please try again.")
+                continue
+            
+            name = input("Name: ").strip()
+            if not name:
+                print("Name cannot be empty. Please try again.")
+                continue
+
+            birthYear = input("Year of Birth: ").strip()
+            faculty = input("Faculty: ").strip()
+            password = gp.getpass("Enter new Password: ").strip()
+            if not password:
+                print("Password cannot be empty. Please try again.")
+                continue
+
+            break  # Breaks out of the loop if all required fields are provided
 
         self.user = self.auth.signup(email, password, name, birthYear, faculty)
 
         if self.user is not None:
+            print("Signup successful!")
             self.show_member_menu()
         else:
-            print("This account is already registered!")
+            print("This account is already registered or there was an error in registration.")
             self.show_start_menu()
 
     # Logout method for the user
