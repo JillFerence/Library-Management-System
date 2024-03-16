@@ -28,7 +28,6 @@ Group member names and ccids (3-4 members)
   - Setting up the files for the project
   - Adding docstrings and comments
   - Testing edge cases
-  - Major refactoring of code: Lyedne
 
 # Code execution guide
 In the project directory, run the command line:  
@@ -54,4 +53,8 @@ depending on your system and database file.
   - [SQL Compare Two Dates](https://www.geeksforgeeks.org/sql-query-to-compare-two-dates/)
 - Hunter:
   - [SQL Delete Data in Python](https://pynative.com/python-mysql-delete-data/)
-  - 
+  - [SQL Delete Statement](https://www.w3schools.com/sql/sql_delete.asp)
+  - [Getpass Documentation](https://docs.python.org/3/library/getpass.html)
+  - [SQL Injection Testing](https://www.geeksforgeeks.org/authentication-bypass-using-sql-injection-on-login-page/)
+  - [SQL Update Statement](https://www.w3schools.com/sql/sql_update.asp)
+  - [SQL INSERT for Testing](https://www.w3schools.com/sql/sql_insert.asp)
