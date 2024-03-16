@@ -168,6 +168,7 @@ class UI:
     # Sign up method for the user
     def signup(self):
         print("\n**** Sign Up ****")
+        # cState tracks if the user wants to continue trying to signup
         cState = "y"
         while cState == "y":
             # Email
@@ -195,6 +196,7 @@ class UI:
                 continue
 
             break  # Breaks out of the loop if all required fields are provided
+        # Attempts to sign in, will handle errors 
         if(cState == "y"):
             try:
                 self.user = self.auth.signup(email, password, name, birthYear, faculty)
@@ -202,7 +204,6 @@ class UI:
                 self.show_member_menu()
             except Exception as e:
                 print(e)
-        
         self.show_start_menu()
 
     # Logout method for the user
