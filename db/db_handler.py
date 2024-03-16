@@ -92,7 +92,7 @@ class DatabaseHandler:
         overdue_borrowings_query = """
             SELECT COUNT(*)
             FROM borrowings
-            WHERE member = ? AND end_date IS NULL AND DATE('now') > DATE('start_date', '+20 day')
+            WHERE member = ? AND end_date IS NULL AND start_date < date('now', '-20 day')
             """
         overdue_borrowings = self.fetch_one(overdue_borrowings_query, (email,))
         if overdue_borrowings is not None:
