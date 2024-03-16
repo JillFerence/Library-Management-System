@@ -168,42 +168,43 @@ class UI:
     # Sign up method for the user
     def signup(self):
         print("\n**** Sign Up ****")
-
-        while True:
+        # cState tracks if the user wants to continue trying to signup
+        cState = "y"
+        while cState == "y":
             # Email
             email = input("Fill information below\nEmail: ").strip()
             if not email:
-                print("Email cannot be empty. Please try again.")
+                cState = input("Email cannot be empty.\nDo you want to try again? (y/n): ").lower()
                 continue
             # Name
             name = input("Name: ").strip()
             if not name:
-                print("Name cannot be empty. Please try again.")
+                cState = input("Name cannot be empty.\nDo you want to try again? (y/n): ").lower()
                 continue
             # Birth Year (can be empty)
             birthYear = input("Year of Birth: ").strip()
             if birthYear == "": birthYear = None
             elif len(birthYear) != 4 or not birthYear.isdigit(): # If a birth year is given, ensures it is a valid birth year
-                print("Birth year has to be 4 digit number (ex: 2000). Please try again.")
+                cState = input("Birth year has to be 4 digit number (ex: 2000).\nDo you want to try again? (y/n): ").lower()
                 continue
             # Faculty (can be empty)
             faculty = input("Faculty: ").strip()
             # Password
             password = gp.getpass("Enter new Password: ").strip()
             if not password:
-                print("Password cannot be empty. Please try again.")
+                cState = input("Password cannot be empty.\nDo you want to try again? (y/n): ").lower()
                 continue
 
             break  # Breaks out of the loop if all required fields are provided
-
-        self.user = self.auth.signup(email, password, name, birthYear, faculty)
-
-        if self.user is not None:
-            print("Signup successful!")
-            self.show_member_menu()
-        else:
-            print("This account is already registered or there was an error in registration.")
-            self.show_start_menu()
+        # Attempts to sign in, will handle errors 
+        if(cState == "y"):
+            try:
+                self.user = self.auth.signup(email, password, name, birthYear, faculty)
+                print("Signup successful!")
+                self.show_member_menu()
+            except Exception as e:
+                print(e)
+        self.show_start_menu()
 
     # Logout method for the user
     def logout(self):
