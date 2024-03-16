@@ -58,3 +58,4 @@ depending on your system and database file.
   - [SQL Injection Testing](https://www.geeksforgeeks.org/authentication-bypass-using-sql-injection-on-login-page/)
   - [SQL Update Statement](https://www.w3schools.com/sql/sql_update.asp)
   - [SQL INSERT for Testing](https://www.w3schools.com/sql/sql_insert.asp)
+  - [Exception in Python](https://rollbar.com/blog/throwing-exceptions-in-python/)
