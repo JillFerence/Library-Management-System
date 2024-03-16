@@ -47,3 +47,7 @@ depending on your system and database file.
   - [SQL DATE, TIME, DATEIME](https://hyperskill.org/learn/step/27151)
   - [Python DateTime](https://www.w3schools.com/python/python_datetime.asp)
   - [SQL Limit & Offset](https://www.sqltutorial.org/sql-limit/)
+- Lynden:
+  - [Python DateTime strptime](https://www.programiz.com/python-programming/datetime/strptime)
+  - [Python Packages](https://docs.python.org/3/tutorial/modules.html)
+  - [SQL Compare Two Dates](https://www.geeksforgeeks.org/sql-query-to-compare-two-dates/)
