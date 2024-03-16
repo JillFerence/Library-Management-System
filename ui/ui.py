@@ -134,7 +134,7 @@ class UI:
 
         if(pidFlag):
             print("Penalty ID not found")
-        cFlag = input("Do you want to retry? (y/n): ").lower()
+        cFlag = input("Do you want to retry? (Y|N): ").lower()
         if(cFlag == "y"):
             self.process_payment(penatlies)
 
@@ -174,25 +174,25 @@ class UI:
             # Email
             email = input("Fill information below\nEmail: ").strip()
             if not email:
-                cState = input("Email cannot be empty.\nDo you want to try again? (y/n): ").lower()
+                cState = input("Email cannot be empty.\nDo you want to try again? (Y|N): ").lower()
                 continue
             # Name
             name = input("Name: ").strip()
             if not name:
-                cState = input("Name cannot be empty.\nDo you want to try again? (y/n): ").lower()
+                cState = input("Name cannot be empty.\nDo you want to try again? (Y|N): ").lower()
                 continue
             # Birth Year (can be empty)
             birthYear = input("Year of Birth: ").strip()
             if birthYear == "": birthYear = None
             elif len(birthYear) != 4 or not birthYear.isdigit(): # If a birth year is given, ensures it is a valid birth year
-                cState = input("Birth year has to be 4 digit number (ex: 2000).\nDo you want to try again? (y/n): ").lower()
+                cState = input("Birth year has to be 4 digit number (ex: 2000).\nDo you want to try again? (Y|N)): ").lower()
                 continue
             # Faculty (can be empty)
             faculty = input("Faculty: ").strip()
             # Password
             password = gp.getpass("Enter new Password: ").strip()
             if not password:
-                cState = input("Password cannot be empty.\nDo you want to try again? (y/n): ").lower()
+                cState = input("Password cannot be empty.\nDo you want to try again? (Y|N): ").lower()
                 continue
 
             break  # Breaks out of the loop if all required fields are provided
