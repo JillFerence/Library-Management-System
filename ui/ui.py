@@ -165,18 +165,25 @@ class UI:
         print("\n**** Sign Up ****")
 
         while True:
+            # Email
             email = input("Fill information below\nEmail: ").strip()
             if not email:
                 print("Email cannot be empty. Please try again.")
                 continue
-            
+            # Name
             name = input("Name: ").strip()
             if not name:
                 print("Name cannot be empty. Please try again.")
                 continue
-
+            # Birth Year (can be empty)
             birthYear = input("Year of Birth: ").strip()
+            if birthYear == "": birthYear = None
+            elif len(birthYear) != 4 or not birthYear.isdigit(): # If a birth year is given, ensures it is a valid birth year
+                print("Birth year has to be 4 digit number (ex: 2000). Please try again.")
+                continue
+            # Faculty (can be empty)
             faculty = input("Faculty: ").strip()
+            # Password
             password = gp.getpass("Enter new Password: ").strip()
             if not password:
                 print("Password cannot be empty. Please try again.")
