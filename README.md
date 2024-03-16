@@ -28,6 +28,7 @@ Group member names and ccids (3-4 members)
   - Setting up the files for the project
   - Adding docstrings and comments
   - Testing edge cases
+  - Major refactoring of code: Lyedne
 
 # Code execution guide
 In the project directory, run the command line:  
@@ -51,3 +52,6 @@ depending on your system and database file.
   - [Python DateTime strptime](https://www.programiz.com/python-programming/datetime/strptime)
   - [Python Packages](https://docs.python.org/3/tutorial/modules.html)
   - [SQL Compare Two Dates](https://www.geeksforgeeks.org/sql-query-to-compare-two-dates/)
+- Hunter:
+  - [SQL Delete Data in Python](https://pynative.com/python-mysql-delete-data/)
+  - 
