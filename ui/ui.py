@@ -200,8 +200,8 @@ class UI:
                 self.user = self.auth.signup(email, password, name, birthYear, faculty)
                 print("Signup successful!")
                 self.show_member_menu()
-            except:
-                print("This account is already registered or there was an error in registration.")
+            except Exception as e:
+                print(e)
         
         self.show_start_menu()
 
