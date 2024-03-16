@@ -42,8 +42,8 @@ class BorrowingManager:
     # Method to return a borrowed book
     def return_book(self, email, bid):
         borrowing_query = """
-        SELECT start_date, book_id FROM borrowings WHERE bid = ? AND member = ?"""
-        borrowing = self.db.fetch_one(borrowing_query, (bid, email))
+        SELECT start_date, book_id FROM borrowings b WHERE bid = ? AND member = ? AND (b.end_date > DATETIME('now') OR b.end_date IS NULL)"""
+        borrowing = self.db.fetch_one(borrowing_query, (bid, email)) 
 
         if not borrowing:
             print("Invalid Borrow ID")
