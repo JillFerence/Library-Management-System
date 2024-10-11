@@ -47,6 +47,6 @@ Each team member used various resources throughout the project:
 - **Developer**: Jill Ference  
   [GitHub Profile](https://github.com/jillference) | [LinkedIn](https://linkedin.com/in/jillference)
 - **Developer**: Hunter Pullish
-  [GitHub Profile](https://github.com/jillference)
+  <br>[GitHub Profile](https://github.com/jillference)
 - **Developer**: Lynden Jones
-  [GitHub Profile](https://github.com/LyndenJ)
+  <br>[GitHub Profile](https://github.com/LyndenJ)
