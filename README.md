@@ -44,6 +44,7 @@ Each team member used various resources throughout the project:
   - [Exception in Python](https://rollbar.com/blog/throwing-exceptions-in-python/)
 
 ## Credits
+This project was completed for credit in CMPUT 291 - Introduction to File and Database Management at the University of Alberta.
 - **Developer**: Jill Ference  
   [GitHub Profile](https://github.com/jillference) | [LinkedIn](https://linkedin.com/in/jillference)
 - **Developer**: Hunter Pullish
