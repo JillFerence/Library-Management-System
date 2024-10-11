@@ -1,6 +1,6 @@
 # Library Management System
 ## Description
-This project focused on implementing a library management system using Python and SQL to handle various library functions such as member login, searching for books, borrowing books, returning books, and managing penalties.
+A library management system built with Python to handle various library functions. SQL is used to handle all essential database operations, including member login authentication, searching for books, borrowing books, returning books, tracking due dates, and managing penalties. The database is structured and maintained using SQL to ensure efficient data retrieval and storage, ensuring that the system operates smoothly and handles large datasets effectively.
 
 ### Group Work Breakdown
 Our team divided the project into five main sections based on task size and complexity:
