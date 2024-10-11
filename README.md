@@ -1,46 +1,29 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/50dc0VUx)
-# CMPUT 291 Mini Project 1 - Winter 2024  
-Group member names and ccids (3-4 members)  
-  hpullish, Hunter  
-  jference, Jill  
-  lgjones, Lynden  
+# Library Management System
+## Description
+This project focused on implementing a library management system using Python and SQL to handle various library functions such as member login, searching for books, borrowing books, returning books, and managing penalties.
 
-# Group work break-down strategy
-- First, we decided to break up the project into 5 sections
-  1) Login Screen
-  2) Member Profile
-  3) Returning a Book
-  4) Search for Books
-  5) Pay a Penalty
-- Second, we looked at the size and complexity of each section
-  1) Login Screen: Medium 
-  2) Member Profile: Small 
-  3) Returning a Book: Large
-  4) Search for Books: Large
-  5) Pay a Penalty: Small
-- Third, we divided up the tasks among the three of us to be relatively equal
-  1) Login Screen: Hunter 
-  2) Member Profile: Hunter 
-  3) Returning a Book: Lynden
-  4) Search for Books: Jill
-  5) Pay a Penalty: Hunter
-- Other tasks were shared by everyone at various stages of the project
+### Group Work Breakdown
+Our team divided the project into five main sections based on task size and complexity:
+- Login Screen - Medium: Hunter 
+- Member Profile - Small: Hunter
+- Returning a Book - Large: Lynden
+- Search for Books - Large: Jill
+- Pay a Penalty - Small: Hunter
+
+Additional tasks were shared by all group members:
   - Setting up the files for the project
   - Adding docstrings and comments
   - Testing edge cases
 
-# Code execution guide
-In the project directory, run the command line:  
-"python3 main.py database" OR<br>
-"python3 main.py database.db" OR<br>
-"python main.py database" OR<br>
-"python main.py database.db"<br>
-depending on your system and database file.
+## Setup & Usage
+To run the program, clone the repository, navigate to the project directory and use one of the following commands based on your system setup and database file:
+- For systems using Python 3.x: "python3 main.py database" 
+- If your database file has a '.db' extension: "python3 main.py database.db" 
+- For systems using Python 2.x: "python main.py database"
+- If your database file has a '.db' extension: "python main.py database.db"
 
-# Names of anyone you have collaborated with (as much as it is allowed within the course policy) or a line saying that you did not collaborate with anyone else. 
-  Our group did not collaborate with anyone.
-
-# Resources
+## Sources
+Each team member used various resources throughout the project:
 - Jill:
   - [SQL Concatenation Operator](https://www.ibm.com/docs/en/informix-servers/14.10?topic=expression-concatenation-operator)
   - [SQL Order By Two Columns](https://learnsql.com/cookbook/how-to-order-by-two-columns-in-sql/#:~:text=After%20the%20ORDER%20BY%20keyword,descending\)%20separately%20for%20each%20column.)
@@ -59,3 +42,11 @@ depending on your system and database file.
   - [SQL Update Statement](https://www.w3schools.com/sql/sql_update.asp)
   - [SQL INSERT for Testing](https://www.w3schools.com/sql/sql_insert.asp)
   - [Exception in Python](https://rollbar.com/blog/throwing-exceptions-in-python/)
+
+## Credits
+- **Developer**: Jill Ference  
+  [GitHub Profile](https://github.com/jillference) | [LinkedIn](https://linkedin.com/in/jillference)
+- **Developer**: Hunter Pullish
+  [GitHub Profile](https://github.com/jillference)
+- **Developer**: Lynden Jones
+  [GitHub Profile](https://github.com/LyndenJ)
